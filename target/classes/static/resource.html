@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>E Resource Platform</title>
+    <link rel="stylesheet" href="vendors/bootstrap-4.0.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendors/jquery/jquery-confirm.min.css">
+    <link rel="stylesheet" href="vendors/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendors/bootstarp-table/bootstrap-table.min.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/resource.css">
+
+    <link rel="shortcut icon" href="images/icon/logo.png">
+</head>
+<body>
+<nav class="navbar navbar-light navbar-expand-md" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="index.html">
+        <img src="images/icon/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        E Resource
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">主页<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="resource.html?t=article">文章</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    资源
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="resource.html?t=ppt">PPT</a>
+                    <a class="dropdown-item" href="resource.html?t=word">Word</a>
+                    <a class="dropdown-item" href="resource.html?t=project">Project</a>
+                    <a class="dropdown-item" href="resource.html?t=software">Software</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="website.html">外链</a>
+                </div>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="about.html">关于</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="p/homepage.html">个人主页</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="search.html" method="get">
+            <input class="form-control mr-sm-2" name="keyword" type="search" placeholder="搜索" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+        </form>
+        <div class="btn-group" style="margin-right: 40px">
+            <button type="button" class="btn btn-link dropdown-toggle" id="headerInfoTitle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                未登录
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" id="userInfoContainer">
+                <button class="dropdown-item" type="button" onclick="location.href='p/homepage.html'">个人主页</button>
+                <button class="dropdown-item" type="button" onclick="goLogin()">登录</button>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col col-12 col-sm-12 col-md-11">
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <div style="padding: 20px 5px">
+                        <img src="images/icon/logo.png" class="rounded mx-auto d-block" alt="...">
+                        <h1 class="display-4" style="text-align: center">欢迎</h1>
+                    </div>
+                    <div class="card-container">
+                        <div class="card shadow">
+                            <div class="card-header">
+                                长期公告
+                            </div>
+                            <div class="card-body" id="longTermNoticeContainer"></div>
+                        </div>
+                    </div>
+                    <div class="list-group shadow" id="shortTermNoticeContainer"></div>
+
+                </div>
+                <div class="col-sm-12 col-md-8">
+
+                    <ul class="nav nav-tabs" role="tablist" style="margin: 40px 0;">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="resource-tab" data-toggle="tab" href="#Resource" role="tab" aria-controls="resource" aria-selected="false">资源</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " id="article-tab" data-toggle="tab" href="#Articles" role="tab" aria-controls="article" aria-selected="true">文章</a>
+                        </li>
+
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="Resource" role="tabpanel" aria-labelledby="resource-tab">
+                            <table id="resourceTable"></table>
+                            <div id="toolbar" class="btn-group">
+                                <select class="custom-select" id="resourceType">
+                                    <option value="all">All Resource</option>
+                                    <option value="ppt">PPT</option>
+                                    <option value="word">Word</option>
+                                    <option value="project">Project</option>
+                                    <option value="software">Software</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="Articles" role="tabpanel" aria-labelledby="article-tab">
+                            <div class="card-container" >
+                                <div class="card shadow">
+                                    <div id="articleList"></div>
+                                </div>
+                                <div class="row" style="margin: 40px 0;">
+                                    <div class=" col-6">
+                                        <button type="button" class="btn btn-link float-left" onclick="preArticles()"><span aria-hidden="true">&laquo;Previous</span></button>
+                                    </div>
+                                    <div class=" col-6">
+                                        <button type="button" class="btn btn-link float-right" onclick="nextArticles()"><span aria-hidden="true">Next&raquo;</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</div><footer class="footer">
+    <p class="copy-p">
+        &copy; CopyRight 2018 E-ReSource | Powered By <a href="https://longxinyu.love/">E-ReSource</a>
+    </p>
+</footer>
+
+<script src="vendors/jquery/jquery-3.3.1.min.js"></script>
+<script src="vendors/jquery/jquery.cookie.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="vendors/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+<script src="vendors/bootstarp-table/bootstrap-table.min.js"></script>
+<script src="vendors/bootstarp-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="vendors/jquery/jquery-confirm.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/resource.js"></script>
+</body>
+</html>

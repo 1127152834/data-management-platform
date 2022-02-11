@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  e-resource:
+    image: bisicloud/e-resource
+    container_name: e-resource
+    volumes:
+      - "D:\\E-ReSource\\logs:/log"
+      - "D:\\E-ReSource\\article-img:/E-ReSource/article-img"
+      - "D:\\E-ReSource\\resource:/E-ReSource/resource"
+    environment:
+      - "TZ=Asia/Shanghai"
+    ports:
+      - 8098:8098
+    restart: on-failure

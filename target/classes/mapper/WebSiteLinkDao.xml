@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhang.datamanagementplatform.dao.WebSiteLinkDao">
+
+    <insert id="insertLink" parameterType="com.zhang.datamanagementplatform.entity.POJO.PO.WebSiteLinkPO">
+        insert into web_site_link(
+        <if test="link.id != null">
+            id
+        </if>
+        <if test="link.linkName != null">
+            ,link_name
+        </if>
+        <if test="link.linkAddress != null">
+            ,link_address
+        </if>
+        <if test="link.linkImage != null">
+            ,link_image
+        </if>
+        <if test="link.linkType != null">
+            ,link_type
+        </if>
+        <if test="link.isView != null">
+            ,is_view
+        </if>
+        )
+        values (
+        <if test="link.id != null">
+            #{link.id}
+        </if>
+        <if test="link.linkName != null">
+            ,#{link.linkName}
+        </if>
+        <if test="link.linkAddress != null">
+            ,#{link.linkAddress}
+        </if>
+        <if test="link.linkImage != null">
+            ,#{link.linkImage}
+        </if>
+        <if test="link.linkType != null">
+            ,#{link.linkType}
+        </if>
+        <if test="link.isView != null">
+            ,#{link.isView}
+        </if>
+        )
+    </insert>
+
+    <update id="updateLinkById" parameterType="com.zhang.datamanagementplatform.entity.POJO.PO.WebSiteLinkPO">
+        update web_site_link set
+        link_name = #{link.linkName}
+        ,link_address = #{link.linkAddress}
+        ,link_image = #{link.linkImage}
+        ,link_type = #{link.linkType}
+        ,is_view = #{link.isView}
+         where id=#{link.id}
+    </update>
+
+    <select id="getLinkListByPaging" resultType="com.zhang.datamanagementplatform.entity.POJO.PO.WebSiteLinkPO">
+        select * from web_site_link as web
+        limit #{page},#{pageSize};
+    </select>
+
+
+    <select id="getViewLinkList" resultType="com.zhang.datamanagementplatform.entity.POJO.VO.WebSiteLinkVO">
+        select * from web_site_link where is_view = 0;
+    </select>
+
+    <select id="getLink" resultType="com.zhang.datamanagementplatform.entity.POJO.PO.WebSiteLinkPO">
+        select * from web_site_link where id=#{id}
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(1) from web_site_link
+    </select>
+
+    <select id="getViewCount" resultType="java.lang.Integer">
+        select count(1) from web_site_link where is_view = 0;
+    </select>
+
+    <delete id="deleteLink">
+        delete from web_site_link
+        where id=#{id}
+    </delete>
+
+    <update id="updateViewState">
+        update web_site_link set
+         is_view = #{isView}
+        where id=#{id}
+    </update>
+
+</mapper>

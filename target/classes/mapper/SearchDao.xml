@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhang.datamanagementplatform.dao.SearchDao">
+
+    <select id="selectNotice" resultType="com.zhang.datamanagementplatform.entity.DTO.Notice">
+        select id,title,summary,create_time,long_term
+        from `notice` WHERE CONCAT(`title`,`content`,`summary`) LIKE #{keyword}
+    </select>
+    <select id="selectResource" resultType="com.zhang.datamanagementplatform.entity.POJO.PO.ResourcePO">
+        select id,title,summary,create_time,`type`
+        from `resource` WHERE has_pass=1 and  CONCAT(`title`,`summary`,`type`,`file_name`) LIKE #{keyword}
+    </select>
+    <select id="selectArticles" resultType="com.zhang.datamanagementplatform.entity.POJO.PO.ArticlePO">
+        select id,title,summary,create_time,`tags` as str_tags
+        from `article` WHERE has_pass=1 and  CONCAT(`title`,`summary`,`tags`) LIKE #{keyword}
+    </select>
+    <select id="selectLinks" resultType="com.zhang.datamanagementplatform.entity.POJO.PO.WebSiteLinkPO">
+        select id,link_name,link_address,link_image,link_type
+        from `web_site_link` WHERE is_view = 1 and  CONCAT(`link_name`,`link_address`,`link_type`) LIKE #{keyword}
+    </select>
+</mapper>
